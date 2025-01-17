@@ -1,11 +1,14 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.hilt.android)
 }
 
 android {
     namespace = "com.example.dddlibrary"
     compileSdk = 34
+
 
     defaultConfig {
         applicationId = "com.example.dddlibrary"
@@ -26,6 +29,9 @@ android {
             )
         }
     }
+    buildFeatures {
+        viewBinding = true
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -36,13 +42,26 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
+    implementation(libs.core.ktx)
+    implementation(libs.appcompat)
     implementation(libs.material)
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.constraintlayout)
+    implementation(libs.constraintlayout)
+
+    implementation(libs.bundles.lifecycle)
+    implementation(libs.bundles.coroutines)
+    implementation(libs.bundles.room)
+    implementation(libs.bundles.navigation)
+    implementation(libs.bundles.retrofit)
+    implementation(libs.bundles.okhttp)
+    implementation(libs.bundles.moshi)
+
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
+
+    kapt(libs.room.compiler)
+
     testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.androidx.test.ext)
+    androidTestImplementation(libs.espresso.core)
 }
+
